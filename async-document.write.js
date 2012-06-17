@@ -3,7 +3,7 @@
 * Author: Florentin Zorca
 */
 (function(){
-	var calls = 0, implants = 0, queue = [], queueInterval = 1000, originalWrite = document.write, lastImplant;
+	var calls = 0, implants = 0, queue = [], originalWrite = document.write, lastImplant;
 
 	var log = function (text) {
         console.log('Calls:' + calls + ', Queue:' + queue.length + ', ' + text);
