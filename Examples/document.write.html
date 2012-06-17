@@ -16,7 +16,7 @@ This is just a normal text at the beginning of the document.<br/>
 	console.log('Starting evil document.write calls...');
 	document.write('<b>I am an evil content!</b>', "<h3>and I am even nastier</h3>");
 	console.log('Docwritten pure HTML.');
-	document.write('<scr'+'ipt>$("#MyTrigger").css("border","3px solid red");</scr'+'ipt>');
+	document.write('<scr'+'ipt>$("#dummy").css("border","3px solid red");</scr'+'ipt>');
 	console.log('Docwritten inline script with visible effect.');
 </script>
 Some more text. <br/>
@@ -48,9 +48,6 @@ This is just a normal text in middle of the document.<br/>
 	console.log('Docwritten text outside the yellow box.');
 	console.log('...finished document.write calls.');
 </script>
-<form>
-<input type="button" id="MyTrigger" value="Initial text"/>
-</form>
 <br/>This is just a normal text at the end of the document. 
 </body>
 </html>

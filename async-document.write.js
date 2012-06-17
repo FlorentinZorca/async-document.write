@@ -87,7 +87,7 @@
 		}
     };
 	var inject = function (implant, callback) {
-        var async = false, stillToDo = 0;
+        var async = false;
 		var makeScript = function(parentNode, text){
 			var script = document.createElement('script');
 			script.type = 'text/javascript';
@@ -97,21 +97,15 @@
 		};
 		var getScript = function(parentNode, url){
 			async = true;
-            stillToDo++;
-			log(stillToDo + '. Asynch script: ' + url);
+			log('Asynch script: ' + url);
 			$.ajax({
 				url: url,
 				dataType: 'script',
 				async:true,
 				timeout:2000,
 				complete: function(jqXHR, textStatus){
-                    stillToDo--;
-                    log(textStatus + ': loaded ' + url + ', still to load: ' + stillToDo);
-
-                    if (0 === stillToDo) {
-						log('Finished joining asynchronous script loading, now calling back.');
-                        if (callback) callback();
-                    }
+                    log(textStatus + ': loaded ' + url);
+                    if (callback) callback();
 				}
 			});
 		};
@@ -167,7 +161,7 @@
 			log('No implant?');
 		}
 		
-        log('Asynch scripts spawned ' + stillToDo);
+        if(async) log('Asynch scripts spawned.');
         if (!async && callback){
 			log('Calling back after pure inline content.');
 			callback();
