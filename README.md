@@ -28,10 +28,10 @@ document.write('<a href="..."><img src="..."/>...</a>');
 One solution for this problem is to intercept document.write calls and process them asynchronously, while still preserving their intended destination position.
 
 ## Dependencies
-This lib need JQuery for the comfort of loading scripts. A future version might get rid of this dependency.
+This lib needs JQuery for the comfort of loading external scripts asynchronously. A future version might get rid of this dependency.
 
 ## Compatibility
-This lib was tested with JQuery 1.7.2.
+Tested with JQuery 1.7.1 and JQuery 1.7.2.
 
 ## Source code
 The human readable working source code is async-document.write.js.
