@@ -1,0 +1,1 @@
+document.write('<i>This external JS written text should also be in the yellow box.</i>');

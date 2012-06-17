@@ -1,0 +1,55 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="../async-document.write.js"></script>
+<script>
+$(document).ready(function () {    
+	document.applyWrite();
+});
+</script>
+
+<title>Doc. Write Rant</title></head>
+<body>
+This is just a normal text at the beginning of the document.<br/>
+<script>
+	console.log('Starting evil document.write calls...');
+	document.write('<b>I am an evil content!</b>', "<h3>and I am even nastier</h3>");
+	console.log('Docwritten pure HTML.');
+	document.write('<scr'+'ipt>$("#MyTrigger").css("border","3px solid red");</scr'+'ipt>');
+	console.log('Docwritten inline script with visible effect.');
+</script>
+Some more text. <br/>
+<div id="dummy" style="background-color: #CCC">
+<script>
+	document.write('<scr'+'ipt type="text/javascript" src="http://s.autoscout24.net/javascripts/jquery-ui.min.js"></scr'+'ipt>');
+	// now the slow AudienceScience JS, which should delay the processing of the rest, but not block the page
+	document.write('<scr'+'ipt type="text/javascript" src="http://pix04.revsci.net/I11251/a4/0/0/0.js"></scr'+'ipt>');
+	console.log('Docwritten 3rd party scripts with source addresses.');
+</script>
+This is just a normal text in middle of the document.<br/>
+<div id="blah" style="background-color: yellow">
+<script>
+	document.write('<scr');
+	document.write('ipt>document.write("<b>');
+	document.write(' Multiple calls, from a document.write');
+	document.write(' in a document.write call in the yellow box.</b>");')
+	document.write('</scr')
+	document.write('ipt>');
+	console.log('Docwritten document.write script from multiple parts.');
+	document.write('<i>This text should be in the yellow box.</i>');
+	document.write('<scr'+'ipt type="text/javascript" src="./dummy-external.js"></scr'+'ipt>');
+	console.log('Docwritten text in the yellow box.');
+</script>
+</div>
+</div>
+<script>
+	document.write('<i>This text should be outside the yellow box.</i>');
+	console.log('Docwritten text outside the yellow box.');
+	console.log('...finished document.write calls.');
+</script>
+<form>
+<input type="button" id="MyTrigger" value="Initial text"/>
+</form>
+<br/>This is just a normal text at the end of the document. 
+</body>
+</html>
