@@ -3,10 +3,15 @@
 * Author: Florentin Zorca
 */
 (function(){
-	var calls = 0, implants = 0, queue = [], originalWrite = document.write, lastImplant;
+	var calls = 0, implants = 0, queue = [], originalWrite = document.write, lastImplant, loggingEnabled = false;
 
+	var enableLogging = function(){
+		loggingEnabled = true;
+	};
 	var log = function (text) {
-        console.log('Calls:' + calls + ', Queue:' + queue.length + ', ' + text);
+		if(loggingEnabled && console.log){
+			console.log('Calls:' + calls + ', Queue:' + queue.length + ', ' + text);
+		}
     };
 	var next = function(todo, timeout){
 		//todo();
@@ -104,7 +109,7 @@
                     log(textStatus + ': loaded ' + url + ', still to load: ' + stillToDo);
 
                     if (0 === stillToDo) {
-						console.log('Finished joining asynchronous script loading, now calling back.');
+						log('Finished joining asynchronous script loading, now calling back.');
                         if (callback) callback();
                     }
 				}
@@ -162,9 +167,9 @@
 			log('No implant?');
 		}
 		
-        console.log('Asynch scripts spawned ' + stillToDo);
+        log('Asynch scripts spawned ' + stillToDo);
         if (!async && callback){
-			console.log('Calling back after pure inline content.');
+			log('Calling back after pure inline content.');
 			callback();
 		}
     };
@@ -197,13 +202,16 @@
 		write: write,
 		applyWrite: function(timeoutInMs){
 			next(dequeue);
-		}
+		},
+		enableLogging: enableLogging
 	};
 
 	// replace browser's blocking document.write
 	document.write = asyncWrite.write;
 	// add the method to apply the captured document.write calls
 	document.applyWrite = asyncWrite.applyWrite;
+	// register this object in the global context
+	window.asyncWrite = asyncWrite;
 	
 	// AMD define happens at the end for compatibility with AMD loaders
     // that don't enforce next-turn semantics on modules.
