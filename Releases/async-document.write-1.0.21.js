@@ -3,7 +3,7 @@
 * Author: Florentin Zorca
 */
 (function(){
-	var calls = 0, implants = 0, queue = [], originalWrite = document.write, lastImplant, processingImplant, loggingEnabled = false;
+	var calls = 0, implants = 0, queue = [], originalWrite = document.write, lastImplant, loggingEnabled = false;
 
 	var enableLogging = function(){
 		loggingEnabled = true;
@@ -67,7 +67,7 @@
 	};
 	var enqueueOrAppend = function(lastScript, text){
 		var lastHook = getLastHook();
-		if (!lastScript || (lastHook === lastScript && lastHook!==processingImplant)) {
+		if (!lastScript || (lastHook === lastScript)) {
 			appendToLastImplant(text); // append to the last one for those concatenating string by repeatedly calling document.write
 		}
 		else {
@@ -172,7 +172,7 @@
 		var implant, id;
 		if (queue.length > 0){
 			log('Dequeuing');
-			processingImplant = implant = queue.shift();
+			implant = queue.shift();
 			inject(implant, function(){
 				if(implant && implant.hookNode) id = implant.hookNode.id;
 				else id = '';
