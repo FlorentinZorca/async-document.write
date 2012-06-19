@@ -5,7 +5,7 @@
 <script>
 $(document).ready(function () {
 	document.applyWrite();
-	//window.asyncWrite.enableLogging();
+	window.asyncWrite.enableLogging();
 });
 </script>
 
@@ -47,6 +47,12 @@ This is just a normal text in middle of the document.<br/>
 <script>
 	document.write('<i>6th. This text should be outside the yellow box.</i>');
 	console.log('Docwritten text outside the yellow box.');
+	document.write('<scr');
+	document.write('ipt>document.write("<b>7th: Script and noscript tags included.</b>");</scr');
+	document.write('ipt><noscr');
+	document.write('ipt>8th. How sick! Noscript tags created by document.write!</noscr')
+	document.write('ipt>');
+	console.log('Docwritten script and noscript tags.'); // yes, there are some <noscript> tags created via document.write in some advertising code!
 
 	console.log('...finished document.write calls.');
 </script>
